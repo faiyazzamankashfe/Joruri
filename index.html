@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JORURI | Fast Daily Essentials & Trending Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* 2. Vibrant Color System & 14. Fonts */
+        :root {
+            --primary: #FF5A5F;
+            --secondary: #5F6FFF;
+            --accent: #00C897;
+            --highlight: #FFD93D;
+            --bg: #F8F9FF;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+        }
+
+        h1, h2, h3, h4, .brand-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        /* 1. Announcement Bar */
+        .announcement-bar {
+            background-color: var(--highlight);
+            color: var(--text-dark);
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* 9. Navigation Menu */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            display: flex;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid var(--secondary);
+            border-radius: 25px 0 0 25px;
+            outline: none;
+            font-family: 'Inter';
+        }
+
+        .search-bar button {
+            padding: 12px 25px;
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* 2. & 12. Hero Section - Split Layout (No text overlap) */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            padding: 40px 5%;
+            background-color: var(--bg);
+            min-height: 400px;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background-color: #e54b50;
+        }
+
+        .hero-visual {
+            flex: 1;
+            height: 300px;
+            background-color: var(--accent);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,200,151,0.2);
+        }
+
+        /* 6. Product Card Design */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 32px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 0 5%;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            position: relative;
+            /* Strict Rule: No text on image (except necessary badges like discount) */
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .product-price strike {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: normal;
+            margin-left: 10px;
+        }
+
+        .btn-cart {
+            margin-top: auto;
+            background-color: var(--accent);
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-cart:hover {
+            background-color: #00b386;
+        }
+
+        /* 8. Mobile Layout */
+        @media (max-width: 768px) {
+            .announcement-bar {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-bar {
+                margin: 0;
+                width: 100%;
+            }
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 5%;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="announcement-bar">
+        <span>🚚 Free delivery over ৳999</span>
+        <span>💵 COD available</span>
+        <span>💳 bKash & Nagad accepted</span>
+    </div>
+
+    <nav class="navbar">
+        <a href="#" class="brand-logo">JORURI</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search daily needs, fashion, gadgets...">
+            <button>Search</button>
+        </div>
+        <div>
+            <a href="#" class="btn" style="background-color: var(--white); color: var(--text-dark); border: 2px solid #eee;">🛒 Cart (0)</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="hero-text">
+            <h1 id="hero-heading">Daily Needs Delivered Fast</h1>
+            <p id="hero-subtext">Get your groceries and essentials right to your door.</p>
+            <button class="btn" id="hero-btn">Shop Essentials</button>
+        </div>
+        <div class="hero-visual" id="hero-animation">
+            [Animated Groceries Sliding]
+        </div>
+    </section>
+
+    <h2 class="section-title">Trending Products Drop 🔥</h2>
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-badge">-20%</span>
+                [Image: Smartwatch]
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">T500 Smart Watch Series 8</h3>
+                <div class="product-price">৳1,200 <strike>৳1,500</strike></div>
+                <button class="btn btn-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                [Image: Unisex Perfume]
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">Premium Unisex Perfume Oil</h3>
+                <div class="product-price">৳850</div>
+                <button class="btn btn-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <span class="discount-badge">HOT</span>
+                [Image: T-Shirt]
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">Premium Cotton Drop Shoulder</h3>
+                <div class="product-price">৳450</div>
+                <button class="btn btn-cart">Add to Cart</button>
+            </div>
+        </div>
+        
+        <div class="product-card">
+            <div class="product-image">
+                [Image: Kitchen Gadget]
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">Mini Electric Chopper</h3>
+                <div class="product-price">৳650</div>
+                <button class="btn btn-cart">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                heading: "Daily Needs Delivered Fast",
+                subtext: "Get your groceries and essentials right to your door.",
+                btnText: "Shop Essentials",
+                btnColor: "var(--primary)",
+                visualText: "[Animated Groceries Sliding]",
+                visualBg: "var(--accent)"
+            },
+            {
+                heading: "Trending Products Everyone Wants",
+                subtext: "Discover the latest in fashion, beauty, and tech.",
+                btnText: "Shop Trending",
+                btnColor: "var(--secondary)",
+                visualText: "[Moving Fashion & Gadgets]",
+                visualBg: "var(--highlight)"
+            },
+            {
+                heading: "Hot Deals Today",
+                subtext: "Massive discounts on top brands across Bangladesh.",
+                btnText: "View Deals",
+                btnColor: "var(--accent)",
+                visualText: "[Discount Animations]",
+                visualBg: "var(--primary)"
+            }
+        ];
+
+        let currentSlide = 0;
+        const headingEl = document.getElementById('hero-heading');
+        const subtextEl = document.getElementById('hero-subtext');
+        const btnEl = document.getElementById('hero-btn');
+        const visualEl = document.getElementById('hero-animation');
+
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Apply new content
+            headingEl.innerText = slides[currentSlide].heading;
+            subtextEl.innerText = slides[currentSlide].subtext;
+            btnEl.innerText = slides[currentSlide].btnText;
+            btnEl.style.backgroundColor = slides[currentSlide].btnColor;
+            visualEl.innerText = slides[currentSlide].visualText;
+            visualEl.style.backgroundColor = slides[currentSlide].visualBg;
+            visualEl.style.color = currentSlide === 1 ? 'var(--text-dark)' : 'white'; // Keep text readable on yellow
+            
+        }, 3000); // Auto sliding every 3 seconds as requested
+    </script>
+</body>
+</html>
